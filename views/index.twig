@@ -12,9 +12,12 @@
 <div class ="background1">
     <div class="maincontainer">
             <div class="col-md-8 w3-animate-right fixspeed textportion">
-                <h1>SMP Bat Recognition Engine</h1>
+                <h1>Bat Recognition Engine</h1>
                 <br>
-                <button type="button" class="btn btn-primary">Upload Video</button>
+                <form method="post" action="/upload" enctype="multipart/form-data">
+                    <input type="file" name="videoFile"><br>
+                    <input type="submit" value="Submit">
+                </form>
                 <button type="button" class="btn btn-primary">Print Statistics</button>
             </div>
     </div>
