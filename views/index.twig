@@ -7,6 +7,14 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="/stylesheets/intro.scss">
+
+        <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+        <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+        <script defer src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+        <script defer src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+        <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+        <script defer src="https://unpkg.com/filepond/dist/filepond.js"></script>
+        <script defer src="/javascripts/fileUpload.js"></script>
 </head>
 
 <div class ="background1">
@@ -14,17 +22,12 @@
             <div class="col-md-8 w3-animate-right fixspeed textportion">
                 <h1>Bat Recognition Engine</h1>
                 <br>
-                <form method="post" action="/upload" enctype="multipart/form-data">
-                    <input type="file" name="videoFile"><br>
-                    <input type="submit" value="Submit">
-                </form>
+                <div>
+                    <label>Upload a video here</label>
+                    <input type = "file" name = "video" class = "filepond">
+                </div>
                 <button type="button" class="btn btn-primary">Print Statistics</button>
             </div>
     </div>
 </div>
-<div>
-
-</div>
-
-
 </html>
