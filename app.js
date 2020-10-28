@@ -1,32 +1,27 @@
-var createError = require('http-errors');
-var express = require('express');
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const _ = require('lodash');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var indexRouter = require('./routes/index');
-const multer = require("multer");
 
 var app = express();
 
-const storage = multer.diskStorage({
-  destination: './public/videos',
-  filename: function (req, file, cb) {
-      console.log('file uploaded', file);
-      cb(null, `test.mp4`);
-  }
-})
+
+var indexRouter = require('./routes/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+//add other middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan('dev'));
+
+//folders
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
 app.use('/', indexRouter);

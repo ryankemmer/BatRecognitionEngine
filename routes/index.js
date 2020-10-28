@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
   destination: './public/videos',
   filename: function (req, file, cb) {
       console.log('file uploaded', file);
-      cb(null, `test.mp4`);
+      cb(null, 'vid.mp4')
   }
 })
 
@@ -19,16 +19,21 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.post('/upload', function (request, response) {
-  upload(request, response, function(err) {
-      if(err) {
-          console.log('Error Occured'); 
-          return; 
-      }
-      console.log(request.file);
-      response.end('Your file Uploaded'); 
-      console.log('Video Uploaded'); 
-  })
-}); 
+router.post('/upload', upload.single('video'), (req, res, next) => {
+
+  const file = req.file
+  console.log(file)
+  
+})
+
+router.post('/submit', (req, res, next) => {
+
+  var spawn = require("child_process").spawn;
+
+  var process = spawn('python',["./hello.py", ] );
+
+
+})
+
 
 module.exports = router;
