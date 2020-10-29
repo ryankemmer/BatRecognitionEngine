@@ -30,7 +30,19 @@ router.post('/submit', (req, res, next) => {
 
   var spawn = require("child_process").spawn;
 
-  var process = spawn('python',["./hello.py", ] );
+  var process = spawn('python',["./public/python/test.py"] );
+
+  process.stdout.on('data',function(data){
+     console.log(data.toString());
+  });
+
+  array = [1,2,2,2,2,1,1,1,1,1,1,2,2,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0]
+
+  inCount = 4
+
+  outCount = 2
+
+  res.render('summary', {data: array, inNum: inCount, outNum: outCount})
 
 
 })
