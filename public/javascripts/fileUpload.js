@@ -1,7 +1,7 @@
 FilePond.registerPlugin(
     FilePondPluginImagePreview,
     FilePondPluginImageResize,
-    //FilePondPluginFileEncode,
+    FilePondPluginFileValidateType
   )
 
 
@@ -9,5 +9,7 @@ FilePond.parse(document.body);
 
 FilePond.setOptions({
   server: '/upload',
-  name: "video"
+  name: "video",
+  maxFiles: 1,
+  acceptedFileTypes: ['video/mp4']
 });

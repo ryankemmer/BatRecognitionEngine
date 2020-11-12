@@ -125,6 +125,8 @@ class main:
         beta = 0.99
         self.initialiseFilters(initialisationPeriod)
 
+        video=cv2.VideoWriter('analyzed.avi',cv2.VideoWriter_fourcc(*'FMP4'),15,(255,255))
+
         while self.stream.more() is True:
 
             self.iVAR = np.sqrt(self.iVARsq)
@@ -142,6 +144,12 @@ class main:
             filled_mask = cv2.dilate(removed_singles, self.kernel, iterations=2)
             output = cv2.blur(filled_mask, (9,9))
             self.display_mask(output)
+
+            video.write(output)
+
+        video.release()
+
+        
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser()

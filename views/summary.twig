@@ -26,6 +26,9 @@
             <div class="col-md-8 w3-animate-right fixspeed textportion">
                 <h1>Total In: <span class="text-success">{{ inNum }} </span></h1>
                 <h1>Total Out: <span class="text-success">{{ outNum }} </span></h1>
+                <a href="/videos/vid.mp4" download>
+                    <button class="btn btn-secondary">Download Video</button>
+                </a>
                 <div>
                     <div id="my_dataviz"></div>
                 </div>
@@ -37,7 +40,6 @@
             </div>
     </div>
 </div>
-
 <script>
     dataStr = '{{ data }}'
     data = dataStr.split(',')

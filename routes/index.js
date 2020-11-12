@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const multer = require("multer");
+const fs = require('fs')
 const { FilePond } = require("filepond");
+
 
 
 const storage = multer.diskStorage({
@@ -16,6 +18,14 @@ var upload = multer({storage: storage});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+
+  try {
+    fs.unlinkSync('./public/videos/vid.mp4')
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
   res.render('index');
 });
 
