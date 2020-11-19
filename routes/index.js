@@ -3,14 +3,20 @@ var router = express.Router();
 const multer = require("multer");
 const fs = require('fs')
 const { FilePond } = require("filepond");
+const uuidv4 = require('uuid/v4');
+const User = require('../User');
 
 
+//get user instance function
+let users = [];
+let getUserInstance = uid => users.find(user => user.id === uid);
+ 
 
 const storage = multer.diskStorage({
   destination: './public/videos',
   filename: function (req, file, cb) {
-      console.log('file uploaded', file);
-      cb(null, 'vid.mp4')
+      file = uuidv4();
+      cb(null, file + '.mp4')
   }
 })
 
@@ -18,25 +24,36 @@ var upload = multer({storage: storage});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.render('index');
+});
 
+
+router.post('/upload', upload.single("video"), (req, res, next) => {
+
+  filename= req.file.filename
+  console.log(filename)
+  res.cookie("userFileName", filename).send('cookie sent');
+
+  
+});
+
+router.delete('/upload',(req, res, next) => {
 
   try {
-    fs.unlinkSync('./public/videos/vid.mp4')
+    fs.unlinkSync('./public/videos/' + req.cookies["userFileName"])
     //file removed
   } catch(err) {
     console.error(err)
   }
-  res.render('index');
+
+  res.clearCookie("userFileName");
+  console.log(req.cookies)
+  
 });
 
-router.post('/upload', upload.single('video'), (req, res, next) => {
-
-  const file = req.file
-  console.log(file)
-  
-})
-
 router.post('/submit', (req, res, next) => {
+
+  console.log(req.cookies)
 
   var spawn = require("child_process").spawn;
 
@@ -46,14 +63,20 @@ router.post('/submit', (req, res, next) => {
      console.log(data.toString());
   });
 
+  try {
+    fs.unlinkSync('./public/videos/' + req.cookies["userFileName"])
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
+
+  res.clearCookie("userFileName");
+
   array = [1,2,2,2,2,1,1,1,1,1,1,2,2,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0]
-
   inCount = 4
-
   outCount = 2
 
   res.render('summary', {data: array, inNum: inCount, outNum: outCount})
-
 
 })
 

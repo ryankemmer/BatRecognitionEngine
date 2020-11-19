@@ -5,10 +5,11 @@ const morgan = require('morgan');
 const _ = require('lodash');
 var path = require('path');
 var createError = require('createerror');
+var cookieParser = require('cookie-parser');
 
 var app = express();
 
-
+app.use(cookieParser());
 var indexRouter = require('./routes/index');
 
 // view engine setup
@@ -21,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
-//folders
+//foldersz
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
