@@ -1,1 +1,1 @@
-# SMCBatRecognition
+# Bat Recognition Engine
